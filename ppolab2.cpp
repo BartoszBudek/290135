@@ -5,17 +5,73 @@ using namespace std;
 
 class osoba
 {    
-    public:    
+    private:    
         int index;
         string imie;
         string nazwisko;
+    public:
+        int setindex(int index);
+        int getindex(int index);
+        string setimie(string imie);
+        string getimie(string imie);
+        string setnazwisko(string nazwisko);
+        string getnazwisko(string nazwisko);
+
 };
  
+void menu()
+{
+    int p = 1;
+    int wybor;
+    while(p)
+    {
+        cout<<"\n";
+        cout<<"Wybierz czynnosc: \n";
+        cout<<"1-dodaj osobe\n";
+        cout<<"2-usun osobe\n";
+        cout<<"3-edytuj osobe\n";
+        cout<<"4-sprawdz obecnosc\n";
+        cout<<"5-pokaz liste\n";
+        cout<<"0-koniec\n";
+        cout<<"wybor: ";
+        cin>>wybor;
+        if(wybor==1)
+        {
+            cout<<" \n";
+            dodaj(tabosoba);
+        }
+        if(wybor==2)
+        {
+            cout<<" \n";
+            usun(tabosoba,tabobecnosc);
+        }
+        if(wybor==3)
+        {
+            cout<<" \n";
+            edytuj(tabosoba,tabobecnosc);
+        }
+        if(wybor==4)
+        {
+            cout<<" \n";
+            sprawdzobecnosc(tabosoba,tabobecnosc,obecnosc);
+        }
+        if(wybor==5)
+        {
+            cout<<" \n";
+            lista(tabosoba,tabobecnosc);
+        }
+        if(wybor==0)
+        {
+            p=0;
+        }
+    }
+}
+
 void dodaj(osoba *tabosoba)
 {
     for(int i=0;i<10;i++)
     {
-        if (tabosoba[i].imie=="")
+        if (tabosoba[i].imie=="");
         {
             cout<<"podaj indeks, imie i nazwisko osoby ktora chcesz dodac: ";
             cin>>tabosoba[i].index>>tabosoba[i].imie>>tabosoba[i].nazwisko;
@@ -76,7 +132,7 @@ void sprawdzobecnosc(osoba *tabosoba,bool *tabobecnosc,bool obecnosc)
     {
         if(tabosoba[i].imie!="")
         {
-            cout<<tabosoba[i].imie<<tabosoba[i].nazwisko<<" ";
+            cout<<tabosoba[i].imie<<" "<<tabosoba[i].nazwisko<<" ";
             cin>>obecnosc;
             tabobecnosc[i]=obecnosc;
         }
@@ -102,49 +158,5 @@ int main()
     osoba tabosoba[10];
     bool tabobecnosc[10];
     bool obecnosc;
-    
-    int p = 1;
-    int wybor;
-    while(p)
-    {
-        cout<<"\n";
-        cout<<"Wybierz czynnosc: \n";
-        cout<<"1-dodaj osobe\n";
-        cout<<"2-usun osobe\n";
-        cout<<"3-edytuj osobe\n";
-        cout<<"4-sprawdz obecnosc\n";
-        cout<<"5-pokaz liste\n";
-        cout<<"0-koniec\n";
-        cout<<"wybor: ";
-        cin>>wybor;
-        if(wybor==1)
-        {
-            cout<<" \n";
-            dodaj(tabosoba);
-        }
-        if(wybor==2)
-        {
-            cout<<" \n";
-            usun(tabosoba,tabobecnosc);
-        }
-        if(wybor==3)
-        {
-            cout<<" \n";
-            edytuj(tabosoba,tabobecnosc);
-        }
-        if(wybor==4)
-        {
-            cout<<" \n";
-            sprawdzobecnosc(tabosoba,tabobecnosc,obecnosc);
-        }
-        if(wybor==5)
-        {
-            cout<<" \n";
-            lista(tabosoba,tabobecnosc);
-        }
-        if(wybor==0)
-        {
-            p=0;
-        }
-    }
+    menu();
 }
