@@ -50,7 +50,7 @@ class osoba
             imie="";
             nazwisko="";
         }
-    };
+};
 
 void dodaj(osoba *tabosoba)
 {
@@ -87,22 +87,24 @@ void usun(osoba *tabosoba,bool *tabobecnosc)
     {
         if(tabosoba[i].getIndex()==idx)
         {
-            if(i==9)
+
+            for(int m=i;m<9;m++)
             {
-                tabosoba[i].wyczysc();
-            }
-            else
-            {
-                for(int m=i;m<9;m++)
+                if(tabosoba[m+1].getImie()=="")
+                {
+                    tabosoba[m].wyczysc();
+                    tabobecnosc[m]=0;
+                }
+                else
                 {
                     tabosoba[m].setIndex(tabosoba[m+1].getIndex());
                     tabosoba[m].setImie(tabosoba[m+1].getImie());
                     tabosoba[m].setNazwisko(tabosoba[m+1].getNazwisko());
                     tabobecnosc[m]=tabobecnosc[m+1];
                 }
-                tabosoba[9].wyczysc();
-                tabobecnosc[9]=0;
             }
+            tabosoba[9].wyczysc();
+            tabobecnosc[9]=0;
         }
     }
 }
