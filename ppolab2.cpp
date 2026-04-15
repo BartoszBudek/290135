@@ -10,7 +10,7 @@ class osoba
         string nazwisko;
     public:
         bool setIndex(int id) {
-            if(id <= 100000 || id >= 999999)
+            if(id < 100000 || id > 999999)
             {
                 cout<<"Bledna dlugosc indeksu\n";
                 return false;
