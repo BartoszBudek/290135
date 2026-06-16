@@ -235,6 +235,27 @@ public:
     }
 };
 
+class Raportfrekwencji: public IRaport{
+    public:
+    void generuj(Student** studenci, int* obecnosc, int liczba_zajec, int rozmiar, string nazwa_pliku){
+        for(int i=0; i<rozmiar; i++){
+            int procentObecnosci = (obecnosc[i] * 100) / liczba_zajec;
+            cout << studenci[i]->getImie() << " " << studenci[i]->getNazwisko() << " - " << procentObecnosci << "%" << endl;
+        }
+    }
+};
+
+class RaportZagrozonych : public IRaport {
+public:
+    void generuj(Student** studenci, int* obecnosc, int liczba_zajec, int rozmiar, string nazwa_pliku){
+        for(int i=0; i<rozmiar; i++){
+            if((obecnosc[i]*1.0/liczba_zajec)<0.5) {
+                cout<<studenci[i]->getImie()<<" "<<studenci[i]->getNazwisko()<<" brakuje "<<liczba_zajec-obecnosc[i]<<" aby zdac"<<endl;
+            }
+        }
+    }
+};
+
 // ============================================================
 //  MAIN i przyklad filtra
 // ============================================================
@@ -253,8 +274,6 @@ void testFiltrowania(IFiltr *filtr, ListaObecnosci *lista){
     }
 
     delete[] wynikStub;
-
-
 }
 
 void testNotyfikatora(INotyfikator* notyfikator, ListaObecnosci* lista) {
@@ -262,8 +281,14 @@ void testNotyfikatora(INotyfikator* notyfikator, ListaObecnosci* lista) {
     notyfikator->powiadom(lista->getStudenci()[0],"test");
 }
 
-void testRaportu(IRaport* raport, ListaObecnosci* lista) {
-    // do uzupelnienia przez studentow
+void testRaportu(IRaport* raport, ListaObecnosci* lista ) {
+    int procentObecnosci=0;
+    raport->generuj(lista->getStudenci(),
+                    lista->getObecnosc(),
+                    lista->getLiczbaZajec(),
+                    lista->getRozmiar(),
+                    "raport.txt");
+
 }
 
 int main() {
@@ -307,7 +332,10 @@ int main() {
     testNotyfikatora(&notyfikatorKonsola, &lista);
 
     // --- Test IRaport ---
-    // WYKORZYSTAJ RAPORT ZAIMPLEMENTOWANY PRZEZ INNA GRUPE
+       // WYKORZYSTAJ RAPORT ZAIMPLEMENTOWANY PRZEZ INNA GRUPE
 
+    RaportZagrozonych raportZagrozonych;
+    testRaportu(&raportZagrozonych, &lista);
+    
     return 0;
 }
